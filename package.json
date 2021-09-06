@@ -1,0 +1,15 @@
+{
+  "name": "appscript_tiller_money_utils",
+  "version": "1.0.0",
+  "description": "Tiller Money Utilities in AppsScript",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/google-apps-script": "^1.0.37"
+  },
+  "author": "Chandra Penke",
+  "license": "MIT"
+}
