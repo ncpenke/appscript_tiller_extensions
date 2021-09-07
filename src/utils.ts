@@ -1,14 +1,13 @@
 /**
  * string -> string mapping
  */
- interface StrToStr {
-    [name: string]: string
-  }
+export interface StrToStr {
+  [name: string]: string
+}
   
-  /**
-   * string -> number mapping
-   */
-  interface StrToNumber {
-    [name: string]: number
-  }
-  
+/**
+ * string -> number mapping
+ */
+export interface StrToNumber {
+  [name: string]: number
+}

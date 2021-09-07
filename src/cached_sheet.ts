@@ -1,8 +1,10 @@
+import { StrToStr, StrToNumber } from './utils';
+
 /**
  * Wrapper around a google spreadsheet for caching values and other functionality
  * such as facilitating access by column name
  */
-class CachedSheet
+export class CachedSheet
 {
     columnMap: StrToNumber;
     original: GoogleAppsScript.Spreadsheet.Sheet;

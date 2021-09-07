@@ -1,3 +1,6 @@
+import { StrToStr } from './utils';
+import { CachedSheet } from './cached_sheet';
+
 export function init() {
   SpreadsheetApp.getUi().createMenu('Tiller Extensions')
     .addItem('Delete Matching Transactions', 'deleteMatchingTransactions')
