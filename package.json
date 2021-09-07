@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc"
   },
-  "devDependencies": {
+  "dependencies": {
     "@types/google-apps-script": "^1.0.37"
   },
   "author": "Chandra Penke",
