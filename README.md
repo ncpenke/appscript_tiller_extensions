@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This contains my custom utility methods for Tiller Money. It is intended to be imported as a package into an AppScript project.
+This package implements custom utility methods for manipulating Tiller Money sheets.
 
 ## References
 
