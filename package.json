@@ -7,9 +7,9 @@
   "scripts": {
     "prepare": "tsc"
   },
+  "author": "Chandra Penke",
+  "license": "MIT",
   "dependencies": {
     "@types/google-apps-script": "^1.0.37"
-  },
-  "author": "Chandra Penke",
-  "license": "MIT"
+  }
 }
