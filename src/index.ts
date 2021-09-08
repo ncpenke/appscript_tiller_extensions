@@ -5,7 +5,7 @@ declare var global: typeof globalThis;
 
 export function init(missingTransactionPatterns: StrToStr[]) {
   (global as any).missingTransactionPatterns = missingTransactionPatterns;
-  SpreadsheetApp.getUi().createMenu('Tiller Extensions')
+  SpreadsheetApp.getUi().createMenu('Tiller Utilities')
     .addItem('Next Missing Category', 'nextMissingCategory')
     .addItem('Delete Matching Transactions', 'deleteMatchingTransactions')
     .addToUi();
@@ -31,12 +31,13 @@ function findNextMissingCategory(sheet: CachedSheet)
 {
   let allValues = [...sheet.cachedValues]; // create a copy of the cached values since we'll be modifying them
   let catIndex = sheet.columnIndex("Category");
-  let idx = 0;
-  allValues.forEach(v => {
-    if (allValues[catIndex].length == 0)
-      return idx;
-    idx++;
-  })
+  let descIndex = sheet.columnIndex("Description");
+  for (let i = 0; i < allValues.length; ++i) {
+    let v = allValues[i];
+    if (v[catIndex].length == 0 && v[descIndex].length > 0) {
+      return i;
+    }
+  }
   return -1;
 }
 
@@ -48,8 +49,9 @@ export function nextMissingCategory() {
   }
   else {
     let catIndex = sheet.columnIndex("Category");
-    let range = sheet.original.getRange(rowIdx, catIndex, 1, 1);
-    transactionsSheet().setActiveRange(range);
+    let range = sheet.original.getRange(rowIdx + 2, catIndex + 1, 1, 1);
+    range.activate();
+    range.getCell(1, 1).activate();
   }
 }
 

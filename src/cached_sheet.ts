@@ -71,10 +71,9 @@ export class CachedSheet
     {
         this.columnMap = {};
         let lastCol = this.original.getLastColumn();
-        let headerRange = this.original.getRange(1, 1, 1, lastCol);
-        for (let i = 1; i <= lastCol; i++) {
-            let val = headerRange.getCell(1, i).getValue();
-            this.columnMap[val] = i - 1;
+        let headerRow = this.original.getRange(1, 1, 1, lastCol).getValues()[0];
+        for (let i = 0; i < lastCol; i++) {
+            this.columnMap[headerRow[i]] = i;
         }
     }
 }
