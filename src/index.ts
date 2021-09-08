@@ -11,5 +11,8 @@ export function deleteMatchingTransactions(transactionPatterns: StrToStr[]) {
   let sheet = new CachedSheet(SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Transactions"), transactionPatterns);
   let allValues = [...sheet.cachedValues]; // create a copy of the cached values since we'll be modifying them
   allValues = allValues.filter(e => !sheet.rowMatchesPattern(e));
-  sheet.replaceValues(allValues);
+  if (allValues.length != sheet.cachedValues.length) {
+    sheet.replaceValues(allValues);
+    SpreadsheetApp.getUi().alert(`Deleted ${sheet.cachedValues.length - allValues.length} transactions`);
+  }
 }
