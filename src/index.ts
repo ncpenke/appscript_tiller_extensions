@@ -3,8 +3,7 @@ import { CachedSheet } from './cached_sheet';
 
 declare var global: typeof globalThis;
 
-export function init(missingTransactionPatterns: StrToStr[]) {
-  (global as any).missingTransactionPatterns = missingTransactionPatterns;
+export function init() {
   SpreadsheetApp.getUi().createMenu('Tiller Utilities')
     .addItem('Next Missing Category', 'nextMissingCategory')
     .addItem('Delete Matching Transactions', 'deleteMatchingTransactions')
@@ -16,8 +15,15 @@ export function transactionsSheet()
   return SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Transactions");
 }
 
+
+function getMissingTransactionPatterns(): StrToStr[]
+{
+  let sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Delete Transactions Patterns");
+  return (new CachedSheet(sheet, [])).toJsonObject();
+}
+
 export function deleteMatchingTransactions() {
-  let transactionPatterns: StrToStr[] = (global as any).missingTransactionPatterns;
+  let transactionPatterns: StrToStr[] = getMissingTransactionPatterns();
   let sheet = new CachedSheet(transactionsSheet(), transactionPatterns);
   let allValues = [...sheet.cachedValues]; // create a copy of the cached values since we'll be modifying them
   allValues = allValues.filter(e => !sheet.rowMatchesPattern(e));
@@ -57,4 +63,3 @@ export function nextMissingCategory() {
 
 (global as any).deleteMatchingTransactions = deleteMatchingTransactions;
 (global as any).nextMissingCategory = nextMissingCategory;
-(global as any).missingTransactionPatterns = [];

@@ -55,6 +55,22 @@ export class CachedSheet
         }
         return false;
     }
+
+    /**
+     * @returns The sheet as a JSON object.
+     */
+    public toJsonObject()
+    {
+        let ret = [];
+        for (const [key, value] of Object.entries(this.columnMap)) {
+            this.cachedValues.forEach(row => {
+                let obj = {};
+                obj[key] = row[value];
+                ret.push(obj);
+            })
+        }
+        return ret;
+    }
     
     private initPatterns(patterns: StrToStr[])
     {
