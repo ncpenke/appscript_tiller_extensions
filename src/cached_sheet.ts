@@ -40,16 +40,18 @@ export class CachedSheet
     public rowMatchesPattern(row: any[]): boolean {
         for (let i = 0; i < this.patterns.length; i++) {
             let p = this.patterns[i];
-            let first = true;
             let matched = true;
+            let has_at_least_one_column = false;
             for(let n in p) {
-                matched = (first || matched) && (p[n] == row[this.columnIndex(n)]);
-                first = false;
+                let patternVal = p[n];
+                let rowVal = row[this.columnIndex(n)];
+                matched = matched && patternVal.length > 0 && rowVal.length > 0 && (patternVal == rowVal);
+                has_at_least_one_column = true;
                 if (!matched) {
                     break;
                 }
             }
-            if (matched && !first) {
+            if (matched && has_at_least_one_column) {
                 return true;
             }
         }
